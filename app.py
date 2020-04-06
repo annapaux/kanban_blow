@@ -121,5 +121,5 @@ def add_items():
 if __name__ == '__main__':
     app.secret_key = 'x52495thesecond'
     app.config['SESSION_TYPE'] = 'filesystem'
-    app.run(debug=True)
-    api.run(debug=True)
+    app.run()
+    api.run()

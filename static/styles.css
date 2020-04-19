@@ -10,11 +10,14 @@
 	text-align: center;
 }
 body {
-	margin: 0 auto;
 	background-position:center;
 	background-size: contain;
 }
+.messages{
+	padding-top: 55px;
+	margin-bottom: 0px;
 
+}
 .menu {
 	position: sticky;
 	top: 0;
@@ -64,18 +67,58 @@ footer {
 	margin-top: 0px;
 }
 .left {
-    display: inline-block;
-    float: left;
-}
-
-.right {
-    display: inline-block;
-    float: left;
+	border: solid rgba(128,128,128,0.16) 2px;
+	padding: 5px;
 }
 .todo_box{
-	border: 1px solid black;
+	display: inline-block;
+	height: fit-content;
+	background-color: aliceblue;
+	width: fit-content;
+	border: 5px solid #cad9f5;
+	margin: auto;
 }
+.todo_d {
+    display: inline-block;
+    float: left;
+	padding: 1%;
+	background-color: rgba(245, 0, 66, 0.21);
+}
+
+.doing_d {
+	display: inline-block;
+	float: left;
+	padding: 1%;
+	background-color: rgba(245, 242, 0, 0.2);
+}
+.done_d {
+    display: inline-block;
+    float: left;
+	padding: 1%;
+	background-color: rgba(75, 245, 0, 0.21)
+}
+
 .todo_buttons{
-	float: right;
-	margin-right: 5px;
+	margin: auto;
+	padding: 27%;
+	font-size: xx-large;
+}
+.update_button {
+	margin: auto;
+	font-size: xx-large;
+	background-color: inherit;
+  	color: green;
+	border: none;
+  	cursor: pointer;
+
+}
+
+/* Darker background on mouse-over */
+.update_button:hover {
+  	color: white;
+	background-color: green;
+}
+.column_header{
+	align-content: center;
+	font-size: large;
 }

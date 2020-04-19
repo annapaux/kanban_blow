@@ -1,31 +1,43 @@
 {% extends "/layout.html" %}
+{% from '/todo_component.html' import todo_component %}
+{% from '/add_todo.html' import add_todo %}
 {% block content %}
-    <form method="post">
-        <table name="todo_tab;e">
-            <tr><td>TODO:</td><td><input id="todo_item" name="todo_item" type="text"></td></tr>
-            <tr><td>DUE DATE:</td><td><input id="todo_date" name="todo_date" type="date"></td></tr>
-        </table>
-        <button>SUBMIT</button>
-    </form>
+    {{ add_todo() }}
 {% endblock content %}
 
 
 {% block side %}
-    <div class="todo_list">
-        <ul>
-            {% for todo in all_todos %}
-                    <div class="todo_box">
-                        {{ todo.todo_item }} due on {{ todo.todo_date }}
-                        <span class="todo_buttons">
-                            <a href="{{ url_for('delete_todo', todo_id = todo.id) }}" class = 'fa fa-trash'></a>
-                            {% if todo.done %}
-                                <a href="{{ url_for('not_todo', todo_id = todo.id) }}" class="fa fa-times-circle"></a>
-                            {% elif not todo.done%}
-                                <a href="{{ url_for('not_todo', todo_id = todo.id) }}" class='fa fa-check-circle'></a>
-                            {% endif %}
-                        </span>
-                    </div>
-            {% endfor %}
-         </ul>
+    <div class="d-flex flex-row">
+        <div class="todo_d p-2">
+            <h3 class="column_header">TODO</h3>
+            <hr/>
+            <div class="d-flex flex-column">
+
+                {% for todo in todo_todos %}
+                    {{ todo_component(todo) }}
+                {% endfor %}
+            </div>
+        </div>
+
+        <div class="doing_d p-2">
+            <h3 class="column_header">DOING</h3>
+            <hr/>
+            <div class="d-flex flex-column">
+                {% for todo in doing_todos %}
+                    {{ todo_component(todo) }}
+                {% endfor %}
+            </div>
+        </div>
+
+        <div class="done_d p-2 ">
+            <h3 class="column_header">DONE</h3>
+            <hr/>
+            <div class="d-flex flex-column">
+                {% for todo in done_todos %}
+                    {{ todo_component(todo) }}
+                {% endfor %}
+            </div>
+        </div>
     </div>
+
 {% endblock side %}

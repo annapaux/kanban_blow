@@ -1,0 +1,23 @@
+{% macro add_todo() %}
+    <form method="post">
+        <div class="form-group">
+            <label for="todo_item">Todo</label>
+            <input class="form-control" id="todo_item"  name="todo_item" type="text">
+        </div>
+        <div class="form-group">
+            <label for="item_status">Status</label>
+            <select class="todo_status form-control" id="item_status" name="todo_status">
+                <option value="todo">TODO</option>
+                <option value="doing">DOING</option>
+                <option value="done">DONE</option>
+            </select>
+        <div class="form-group">
+            <label for="todo_date">Due date</label>
+            <input class="form-control" id="todo_date" name="todo_date" type="date">
+        </div>
+        </div>
+        <div class="form-group">
+            <button class="btn btn-primary" type="submit">ADD TASK</button>
+        </div>
+    </form>
+{% endmacro %}

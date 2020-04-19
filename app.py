@@ -7,6 +7,10 @@ import json
 app = Flask(__name__)
 api = FlaskAPI(__name__)
 app.config['SQLALCHEMY_DATABASE_URI'] = "sqlite:///todo.db"
+app.config["TEMPLATES_AUTO_RELOAD"] = True
+app.config['SESSION_TYPE'] = 'filesystem'
+app.secret_key = 'super secret key'
+
 db = SQLAlchemy(app)
 
 #Todos Model
@@ -14,6 +18,7 @@ class Todos(db.Model):
     id = db.Column(db.Integer, unique=True, primary_key=True)
     todo_item = db.Column(db.String(500),  nullable=True)
     todo_date = db.Column(db.String(500), nullable=True)
+    todo_status = db.Column(db.String(10), nullable=False, default='todo')
     done = db.Column(db.Boolean, default=False)
     def __repr__(self):
         return f'Todo item {self.todo_item} due on {self.todo_date}'
@@ -24,14 +29,19 @@ db.create_all()
 def todo():
     todo_item = request.form.get('todo_item') or None
     todo_date = request.form.get('todo_date') or None
-    new_item = Todos(todo_item = todo_item, todo_date=todo_date)
+    todo_status = request.form.get('todo_status') or None
+
+    new_item = Todos(todo_item = todo_item, todo_date=todo_date, todo_status=todo_status)
     if todo_item and todo_date:
         db.session.add(new_item)
         db.session.commit()
         flash(f"Todo item '{todo_item}' added, due '{todo_date}'",'success')
 
-    all_todos = Todos.query.all()
-    return render_template('todo.html', all_todos = all_todos)
+    todo_todos = Todos.query.filter((Todos.todo_status == 'todo'))
+    doing_todos = Todos.query.filter((Todos.todo_status == 'doing'))
+    done_todos = Todos.query.filter((Todos.todo_status == 'done'))
+    print(todo_todos, doing_todos, done_todos)
+    return render_template('todo.html', todo_todos = todo_todos, doing_todos=doing_todos, done_todos=done_todos)
 
 
 @app.route('/delete_todo/<todo_id>', methods=['GET', 'POST'])
@@ -42,14 +52,24 @@ def delete_todo(todo_id):
     db.session.commit()
     return redirect(url_for('todo'))
 
-@app.route('/not_todo/<todo_id>', methods=['GET', 'POST'])
-def not_todo(todo_id):
-    my_todo = Todos.query.get_or_404(todo_id)
-    my_todo.done = not my_todo.done
-    db.session.add(my_todo)
+@app.route('/update_todo/<todo_id>', methods=['GET', 'POST'])
+def update_todo(todo_id):
+    todo_item = request.form.get('todo_item') or None
+    todo_date = request.form.get('todo_date') or None
+    todo_status = request.form.get('todo_status') or None
+    print(request.form)
+    print('Updating', todo_item, todo_date, todo_status)
+
+    todo = Todos.query.get_or_404(todo_id)
+    todo.todo_item = todo_item
+    todo.todo_date = todo_date
+    todo.todo_status = todo_status
     db.session.commit()
-    flash(f"Todo item {my_todo.todo_item} is {'NOT' if not my_todo.done else ''} done", 'info')
+
+    flash(f"Todo item {todo.todo_item} is now {todo.todo_status}", 'info')
+
     return redirect(url_for('todo'))
+
 
 # A route to return available entries in our catalog.
 @app.route('/api/v1/todos/<items>', methods=['GET', 'POST'])
@@ -119,7 +139,5 @@ def add_items():
         })
 
 if __name__ == '__main__':
-    app.secret_key = 'x52495thesecond'
     app.config['SESSION_TYPE'] = 'filesystem'
-    app.run()
-    api.run()
+    app.run(debug=True)

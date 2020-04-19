@@ -1,0 +1,34 @@
+{% macro todo_component(todo) %}
+    <div class="p-2">
+        <form method="post" id="{{ todo.todo_status }}_{{ todo.id }}" action="{{ url_for('update_todo', todo_id = todo.id) }}">
+            <div class="todo_box">
+                <div class="form-group">
+                    <label for="summary">Task</label>
+                    <input id="summary" class="todo_status form-control"  name="todo_item" value="{{ todo.todo_item }}"/>
+                </div>
+
+                 <div class="form-group">
+                    <label for="item_status">Current Status</label>
+                    <select class="todo_status form-control" class="form-control" id="item_status" name="todo_status">
+                        <option value="todo" {% if todo.todo_status == "todo" %} selected {% endif %}>TODO</option>
+                        <option value="doing" {% if todo.todo_status == "doing" %} selected {% endif %}>DOING</option>
+                        <option value="done" {% if todo.todo_status == "done" %} selected {% endif %}>DONE</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="due_on">Due date</label>
+                    <input value="{{ todo.todo_date }}" name="todo_date"  class="form-control" id="todo_date" type="date"/>
+                </div>
+
+                <div class="form-group">
+                    <span class="todo_buttons">
+                        <a href="{{ url_for('delete_todo', todo_id = todo.id) }}" class = 'fa fa-trash'></a>
+                        <button class="update_button fa fa-check" type="submit"></button>
+                    </span>
+                </div>
+
+            </div>
+        </form>
+    </div>
+{% endmacro %}

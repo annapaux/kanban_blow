@@ -7,44 +7,37 @@
           integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
           crossorigin="anonymous">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+
 </head>
 
 <body>
-
-	<!-- Header Section -->
-	<header>
-		<div class="head1">BREAK A TAG</div>
-		<div class="head2">Get your code hammer and let's break stuff within this silly app!</div>
-	</header>
-
 	<!-- Menu Navigation Bar -->
 	<div class="menu">
 		<a href="#home">HOME</a>
-	</div>
+        <div class="messages">
+            {% with messages = get_flashed_messages(with_categories=true) %}
+                {% if messages %}
+                    {% for category, message in messages %}
+                        <div class="alert alert-{{ category }}">
+                        {{ message }}
+                        </div>
+                    {% endfor%}
+                {% endif%}
+            {% endwith%}
 
-	<!-- Body section -->
-	<br/>
-    <div class = "body_sec">
-        {% with messages = get_flashed_messages(with_categories=true) %}
-            {% if messages %}
-                {% for category, message in messages %}
-                    <div class="alert alert-{{ category }}">
-                    {{ message }}
-                    </div>
-                {% endfor%}
-            {% endif%}
-        {% endwith%}
-        <div class="left">
+        </div>
+    </div>
+    <br/>
+
+    <div class = "d-flex flex-row body_sec">
+
+        <div class="p-2">
             {% block content %}{% endblock %}
         </div>
-        <div class="right">
+        <div class="p-2">
             {% block side %}{% endblock %}
         </div>
-	</div>
-
-	<!-- Footer Section -->
-	<footer>KEEP SMACKING!</footer>
-
+    </div>
 
 
 

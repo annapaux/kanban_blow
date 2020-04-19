@@ -1,4 +1,4 @@
-# Simple Kanban --> TAG
+# Simple Kanban
 ![Drag Racing](https://aktiasolutions.com/wp-content/uploads/2019/08/Kanban-Method-Kanban-Methodology-Basic-Featured-Image-AKTIA-Solutions.png)
 
 ## Instructions

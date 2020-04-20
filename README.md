@@ -10,7 +10,7 @@ Its a good old basic Flask app. I have frozen all the requirements for you. Foll
 
 Clone the app:
 ```sh
-$ git clone https://github.com/GitWahome/kanban-blow
+$ git clone https://github.com/GitWahome/kanban-blow.git
 ```
 
 Extract then navigate to the repo using:
@@ -29,7 +29,7 @@ python app.py
 ```
 ### Interface
 
-The interface is simple, just a basic form containing the todo item description and the due dat. The screen to the right lists these once you have added the data. It looks something like this:
+The interface is simple, just a basic form containing the todo item description and the due date. The screen to the right lists these once you have added the data. It looks something like this:
 
 ![Drag Racing](https://i.ibb.co/CznZbwn/Screen-Shot-2020-04-19-at-2-30-25-PM.png)
 
@@ -37,7 +37,7 @@ Play around with it using automated instructions with Sellenium or any other app
 
 ## APIs
 
-Hate sellenium? Worry not, I gotchu! 
+Hate sellenium? Worry not, I gotchu!
 The following API routes will accept post and get requests respectively. Write some curl scripts or basic requests using python. See if you can get a senseless response from the app. Lock the database maybe? Its honestly up to you. Find a bug and expose it.
 ### GET API
 ROUTE: http://127.0.0.1:5000/api/v1/todos/

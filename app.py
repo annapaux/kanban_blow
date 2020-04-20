@@ -1,4 +1,4 @@
-from flask import render_template, url_for, flash, redirect, request,Flask, jsonify
+from flask import render_template, url_for, flash, redirect, request, Flask, jsonify
 from flask_sqlalchemy import SQLAlchemy
 from flask_api import FlaskAPI
 import json
@@ -52,6 +52,7 @@ def delete_todo(todo_id):
     db.session.commit()
     return redirect(url_for('todo'))
 
+
 @app.route('/update_todo/<todo_id>', methods=['GET', 'POST'])
 def update_todo(todo_id):
     todo_item = request.form.get('todo_item') or None
@@ -101,7 +102,6 @@ def api(items):
     return jsonify(todo_items)
 
 
-
 def validate(todos):
     for todo in todos:
         if todo['todo_due_date'] and todo['todo_title']:
@@ -109,6 +109,7 @@ def validate(todos):
         else:
             return False
     return True
+
 
 @app.route('/api/v1/todos_add/', methods=['GET','POST'])
 def add_items():
@@ -123,8 +124,6 @@ def add_items():
             'status': 200,
             'message': f'{len(todos)} todo items added'
         })
-
-
     else:
         return jsonify({
             'status': 404,

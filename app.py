@@ -89,6 +89,7 @@ def api(items):
                     'message':'Input valid parameter, either /api/v1/todos/all or /api/v1/todos/<todo_id>'
                 }
         try:
+            # why do you include this?
             todos.done
             todos = [todos]
         except:
